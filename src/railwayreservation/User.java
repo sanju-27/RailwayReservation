@@ -62,11 +62,12 @@ public class User {
                     p.status.concat("TKL");
                     bookedPnr.add(p);
                     tr.tatkal.set(tr.tatkal.indexOf(temp), x);
+                    
                 }
                 else
                 {
                     Pnr p = new Pnr(tr, this, x, count);
-                    p.status.concat("WL");
+                    p.status.concat("WTKL");
                     bookedPnr.add(p);
     //                tr.tatkal.set(tr.tatkal.indexOf(temp), x);
                     tr.tWaitList.add(p);
