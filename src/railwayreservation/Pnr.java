@@ -10,6 +10,7 @@ package railwayreservation;
  * @author Administrator
  */
 class Pnr {
+    String pnrNo;
     Train myTrain;
     String status;
     User uName;
@@ -24,6 +25,8 @@ class Pnr {
         this.t = t;
         this.bill = count*(this.t.price);
         this.count = count;
+        this.status = "";
+        this.pnrNo = "Tr"+myTrain.trainNo+"U"+uName.name.charAt(0)+uName.name.charAt(1)+uName.name.charAt(2)+"Ti"+t.type;
     }
     public double getBill()
     {
