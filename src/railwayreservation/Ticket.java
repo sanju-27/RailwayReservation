@@ -62,4 +62,10 @@ public class Ticket {
             this.count-=n;
         return true;
     }    
+
+    @Override
+    public String toString() {
+        return  tID + "," + type + "," + price + "," + count + "," + cancelPrice+"\n";
+    }
+    
 }
