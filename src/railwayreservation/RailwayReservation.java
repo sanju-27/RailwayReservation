@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package railwayreservation;
+
 import java.util.*;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Administrator
@@ -14,8 +19,54 @@ public class RailwayReservation {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    static void writeFile(String fname, String str) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(fname, true));
+            bw.write(str);
+        } catch (IOException ex) {
+            System.err.println("Caught exception" + ex);
+        }
+
     }
-    
+
+    public static void main(String[] args) throws IOException {
+        // TODO code application logic here
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Admin admin = new Admin();
+        String userFile = "C:/Users/Administrator/Desktop/userFile";
+        int id = 3;
+        do {
+            System.out.print("Welcome to Railway Reservation\nEnter ID / Enter -1 to exit: ");
+            id = Integer.parseInt(br.readLine());
+            if (id == 1) {
+                int ch1;
+                do {
+                    System.out.println("Hello Admin\n1.User\n2.Trains\n3.Logout");
+                    ch1 = Integer.parseInt(br.readLine());
+                    if (ch1 == 1) {
+                        int ch2;
+                        System.out.println("1.Add\n2.Remove\n3.View\n4.Exit");
+                        do
+                        {
+                            ch2 = Integer.parseInt(br.readLine());
+                            switch (ch2)
+                            {
+                                case 1:
+                                    System.out.print("Enter Name: ");
+                                    String name = br.readLine();
+                                    System.out.print("Enter Phone number: ");
+                                    String ph = br.readLine();
+                                    System.out.print("Entetr age: ");
+                                    int age = Integer.parseInt(br.readLine());
+                                    admin.users.add(new User(admin.users.size(), name, ph, age));
+                            }
+                        }while(ch2<4);
+                    }
+                } while (ch1 < 3);
+            }
+        } while (id < 0);
+
+    }
+
 }
