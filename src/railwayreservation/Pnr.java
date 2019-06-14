@@ -5,6 +5,8 @@
  */
 package railwayreservation;
 
+import java.util.Objects;
+
 /**
  *
  * @author Administrator
@@ -28,6 +30,11 @@ class Pnr {
         this.count = count;
         this.status = "";
         this.pnrNo = "Tr" + myTrain.trainNo + "U" + uName.name.charAt(0) + uName.name.charAt(1) + uName.name.charAt(2) + "Ti" + t.type;
+    }
+    
+    public Pnr(User uname)
+    {
+        this.uName = uname;
     }
 
     public double getBill() {
@@ -107,6 +114,28 @@ class Pnr {
     @Override
     public String toString() {
         return myTrain.trainNo + "," + uName.uID + "," + status + "," + bill + "," + count+"\n";
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.uName);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pnr other = (Pnr) obj;
+        return other.uName.uID==this.uName.uID;
     }
 
 }
