@@ -33,7 +33,9 @@ public class RailwayReservation {
         // TODO code application logic here
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Admin admin = new Admin();
+        Admin admin = (Admin)Admin.readFile();
+        if(admin==null)
+            admin = new Admin();
         String userFile = "C:/Users/Administrator/Desktop/userFile";
         int id = 3;
         do {
@@ -46,7 +48,7 @@ public class RailwayReservation {
                     ch1 = Integer.parseInt(br.readLine());
                     if (ch1 == 1) {
                         int ch2;
-                        System.out.println("1.Add\n2.Remove\n3.View\n4.Exit");
+                        System.out.println("1.Add\n2.View\n3.Count\n4.Exit");
                         do
                         {
                             ch2 = Integer.parseInt(br.readLine());
@@ -64,10 +66,34 @@ public class RailwayReservation {
                                 case 2:
                                     System.out.print("Enter UID: ");
                                     int uid = Integer.parseInt(br.readLine());
-                                    
-                                    admin.users.remove(new User(uid));
+                                    System.out.println(admin.users.get(uid).toString());
+                                    break;  
+                                case 3:
+                                    System.out.println("Total number of users: "+admin.users.size());
                             }
-                        }while(ch2<4);
+                        }while(ch2<3);
+                    }
+                    if(ch1==2)
+                    {
+                        int ch2;
+                        System.out.println("1.Add\n2.View\n3.Count\n4.Exit");
+                        do
+                        {
+                            ch2 = Integer.parseInt(br.readLine());
+                            switch (ch2)
+                            {
+                                case 1:
+                                    
+                                    break;
+                                case 2:
+                                    System.out.print("Enter UID: ");
+                                    int uid = Integer.parseInt(br.readLine());
+                                    System.out.println(admin.users.get(uid).toString());
+                                    break;  
+                                case 3:
+                                    System.out.println("Total number of users: "+admin.users.size());
+                            }
+                        }while(ch2<3);
                     }
                 } while (ch1 < 3);
             }
