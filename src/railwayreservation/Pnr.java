@@ -53,28 +53,60 @@ class Pnr {
     }
 
     public void cancel() {
-        double refund=0;
-        if (this.status.equals("WL")) {
+        double refund = 0;
+        switch (this.status) {
+            case "WL":
+                if (!(this.myTrain.waitList.remove(this))) {
+                    System.out.println("PNR number not found");
+                    return;
+                }
+                refund = this.getRefund();
+                break;
+            case "WTKL":
+                if (!(this.myTrain.tWaitList.remove(this))) {
+                    System.out.println("PNR number not found");
+                    return;
+                }
+                refund = this.getRefund();
+                break;
+            case "CNF":
+                if (!(this.myTrain.names.remove(this))) {
+                    System.out.println("PNR number not found");
+                    return;
+                }
+                if (!(this.myTrain.waitList.isEmpty())) {
+                    Pnr p = this.myTrain.waitList.get(0);
+                    p.status = "CNF";
+                    this.myTrain.names.add(p);
+                    this.myTrain.waitList.remove(0);
 
-            if (!(this.myTrain.waitList.remove(this))) {
-                System.out.println("PNR number not found");
-                return;
-            }
-            refund = this.getRefund();
+                }
+                refund = this.getRefund();
+                break;
+            case "TKL":
+                if (!(this.myTrain.names.remove(this))) {
+                    System.out.println("PNR number not found");
+                    return;
+                }
+                if (!(this.myTrain.waitList.isEmpty())) {
+                    Pnr p = this.myTrain.tWaitList.get(0);
+                    p.status = "TKL";
+                    this.myTrain.names.add(p);
+                    this.myTrain.tWaitList.remove(0);
+
+                }
+                refund = this.getRefund();
+                break;
+            default:
+                break;
         }
-        else if(this.status.equals("WTKL"))
-        {
-            if (!(this.myTrain.tWaitList.remove(this))) {
-                System.out.println("PNR number not found");
-                return;
-            }
-            refund = this.getRefund();
-        }
+
+        System.out.println("PNR number : " + this.pnrNo + "\nStatus : CAN [Cancelled]\nRefunded amount : " + refund);
     }
 
     @Override
     public String toString() {
-        return "Pnr{" + "Train=" + myTrain + ", Name=" + uName + ", status=" + status + ", bill=" + bill + ", Ticket count=" + count + '}';
+        return myTrain.trainNo + "," + uName.uID + "," + status + "," + bill + "," + count+"\n";
     }
 
 }
