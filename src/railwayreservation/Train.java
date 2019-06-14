@@ -25,6 +25,7 @@ class Train {
     List<Pnr> tWaitList = new ArrayList<>();
     List<Pnr> names = new ArrayList<>();
     List<Ticket> tatkal = new ArrayList<>();
+    Map<String,String> route = new HashMap<>();
 
     public Train(int trainNo) {
         this.trainNo = trainNo;
@@ -32,6 +33,10 @@ class Train {
 
     public void setAvailable(List<Ticket> available) {
         this.available.addAll(available);
+    }
+
+    public void setRoute(Map<String, String> route) {
+        this.route = route;
     }
 
     public void setTatkal(List<Ticket> tatkal) {
