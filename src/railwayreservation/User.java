@@ -38,6 +38,10 @@ public class User {
         bookedPnr = new ArrayList<>();
     }
 
+    User(int uid) {
+        this.uID = uid; //To change body of generated methods, choose Tools | Templates.
+    }
+
     public boolean bookTicket(Train tr, int count, int tID, boolean tat) {
         Ticket temp = new Ticket(tID);
         if (tat == false) {
@@ -101,6 +105,28 @@ public class User {
         } catch (IOException ex) {
             System.err.println("Exception at User"+ex);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.uID;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        return this.uID == other.uID;
     }
 
 }
