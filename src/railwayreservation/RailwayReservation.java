@@ -60,6 +60,12 @@ public class RailwayReservation {
                                     System.out.print("Entetr age: ");
                                     int age = Integer.parseInt(br.readLine());
                                     admin.users.add(new User(admin.users.size(), name, ph, age));
+                                    break;
+                                case 2:
+                                    System.out.print("Enter UID: ");
+                                    int uid = Integer.parseInt(br.readLine());
+                                    
+                                    admin.users.remove(new User(uid));
                             }
                         }while(ch2<4);
                     }
