@@ -83,7 +83,9 @@ public class RailwayReservation {
                             switch (ch2)
                             {
                                 case 1:
-                                    
+                                    System.out.print("Enter Train number: ");
+                                    int num = Integer.parseInt(br.readLine());
+                                    Train t = new Train(num);
                                     break;
                                 case 2:
                                     System.out.print("Enter UID: ");
