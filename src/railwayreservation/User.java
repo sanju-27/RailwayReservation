@@ -86,14 +86,20 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(uID).append(",").append(name).append(",").append(phone).append(",").append(age).append("\n");
-        for (Pnr pnr : bookedPnr) {
-            sb.append(pnr.pnrNo).append(",");
-            
-        }
-        return sb.toString();
+        return "User{\n" +", uID=" + uID + "name=" + name + ", phone=" + phone + ", age=" + age +  ",\nbookedPnr=" + bookedPnr + "\n}";
     }
+    
+
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(uID).append(",").append(name).append(",").append(phone).append(",").append(age).append("\n");
+//        for (Pnr pnr : bookedPnr) {
+//            sb.append(pnr.pnrNo).append(",");
+//            
+//        }
+//        return sb.toString();
+//    }
     public void writeFile()
     {
         String fname = "C:/Users/Administrator/Desktop/Reservation/users/"+this.uID+".txt";
