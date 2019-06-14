@@ -89,10 +89,9 @@ class Train {
         try
         {
             new File(fAvailable).mkdirs();
-            new File(fNames).mkdirs();
-            new File(fTWaitlist).mkdirs();
-            new File(fTatkal).mkdirs();
-            new File(fWaitlist).mkdirs();
+            bw = new BufferedWriter(new FileWriter(fNames+"/num.txt"));
+            bw.write(this.trainNo);
+            bw.close();
             bw = new BufferedWriter(new FileWriter(fAvailable+"/available.txt"));
             bw.write(this.getAvaiable());
             bw.close();
@@ -109,8 +108,24 @@ class Train {
             bw.write(this.getWaitlist());
             bw.close();
         } catch (IOException ex) {
-            System.err.println("Caught exception when writing to file at Train"+ex.getMessage());
+            System.err.println("Caught exception when writing to file at Train"+ex);
         }
         
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this.getClass()!=obj.getClass())return false;
+        if(obj==null)return false;
+        if(obj==this)return true;
+        Train t = (Train)obj;
+        return this.trainNo == t.trainNo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + this.trainNo;
+        return hash;
     }
 }
