@@ -7,8 +7,7 @@ package railwayreservation;
 
 import java.util.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -86,9 +85,35 @@ public class RailwayReservation {
                                     System.out.print("Enter Train number: ");
                                     int num = Integer.parseInt(br.readLine());
                                     Train t = new Train(num);
+                                    List<Ticket> gen = new ArrayList<>();
+                                    List<Ticket> tat = new ArrayList<>();
+                                    System.out.print("Enter Type count: ");
+                                    int n = Integer.parseInt(br.readLine());
+                                    System.out.println("TID\tType\tGeneral\tTatkal\tPrice\tCancel Fee");
+                                    for(int i = 0; i<n; i++)
+                                    {
+                                        String[] s = br.readLine().split(" ");
+                                        Ticket gt = new Ticket(Integer.parseInt(s[0]),s[1],Double.valueOf(s[4]),Integer.parseInt(s[2]),Double.valueOf(s[5]));
+                                        Ticket tt = new Ticket(Integer.parseInt(s[0]),s[3],Double.valueOf(s[4]),Integer.parseInt(s[2]),Double.valueOf(s[5]));
+                                        gen.add(gt);
+                                        tat.add(tt);
+                                    }
+                                    Map<String,String> mp = new HashMap<>();
+                                    System.out.println("Enter Route Details\n");
+                                    System.out.print("Number of Stops: ");
+                                    n = Integer.parseInt(br.readLine());
+                                    System.out.println("Place\tTime");
+                                    for (int i = 0; i < n; i++) {
+                                        String s[] = br.readLine().split(" ");
+                                        mp.put(s[0], s[1]);
+                                    }
+                                    t.setRoute(mp);
+                                    t.setAvailable(gen);
+                                    t.setTatkal(tat);
+                                    admin.trains.add(t);
                                     break;
                                 case 2:
-                                    System.out.print("Enter UID: ");
+                                    System.out.print("Enter Train number: ");
                                     int uid = Integer.parseInt(br.readLine());
                                     System.out.println(admin.users.get(uid).toString());
                                     break;  
