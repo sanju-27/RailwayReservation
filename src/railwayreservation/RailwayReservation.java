@@ -155,6 +155,9 @@ public class RailwayReservation {
     private static Pnr bookTicket(Admin admin, User u) throws IOException {
         
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Tatkal? [Y/N]");
+        boolean tat = br.readLine().equalsIgnoreCase("Y")?true:false;
+
         List<Train> ls = new ArrayList<>();
         dest:{
         System.out.println("Enter the from place");
@@ -173,7 +176,42 @@ public class RailwayReservation {
                         ls.add(t);
                 }
             }
-            } 
+            }
+        System.out.println("Available Trains:");
+        for (Train t: ls) {
+            System.out.println(t.trainNo);
+        }
+        System.out.println("Choose train number");
+        int tno = Integer.parseInt(br.readLine());
+        Train t = new Train(tno);
+        t = admin.trains.get(admin.trains.index(t));
+        System.out.println("Available tickets:");
+        int i=1;
+        int tid;
+        if(tat)
+        {
+            for (Ticket x : t.tatkal) {
+                System.out.print(i++ + ". ");
+                System.out.println(x.type + " - " + x.count);
+            }
+            System.out.println("Enter your choice...");
+            i = Integer.parseInt(br.readLine());
+            tid = t.tatkal.get(i - 1).tID;
+        }
+
+        else{
+            for (Ticket x : t.available) {
+                System.out.print(i++ + ". ");
+                System.out.println(x.type + " - " + x.count);
+            }
+            System.out.println("Enter your choice...");
+            i = Integer.parseInt(br.readLine());
+            tid = t.available.get(i - 1).tID;
+        }
+        System.out.println("Enter number of Tickets");
+        int count = Integer.parseInt(br.readLine());
+        Pnr p = u.bookTicket(t, count, tid,tat);
+        return p;
     }
 
     private static void viewPNR(Pnr p) {
