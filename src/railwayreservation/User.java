@@ -42,51 +42,48 @@ public class User {
         this.uID = uid; //To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean bookTicket(Train tr, int count, int tID, boolean tat) {
+    public Pnr bookTicket(Train tr, int count, int tID, boolean tat) {
         Ticket temp = new Ticket(tID);
+        Pnr p=null;
         if (tat == false) {
             if (tr.available.contains(temp)) {
                 Ticket x = tr.available.get(tr.available.indexOf(temp));
+                    p = new Pnr(tr, this, x, count);
                 if (x.book(count)) {
-                    Pnr p = new Pnr(tr, this, x, count);
                     p.status = p.status.concat("CNF");
                     bookedPnr.add(p);
                     tr.available.set(tr.available.indexOf(temp), x);
                 } else {
-                    Pnr p = new Pnr(tr, this, x, count);
+//                    Pnr p = new Pnr(tr, this, x, count);
                     p.status = p.status.concat("WL");
                     bookedPnr.add(p);
                     //                tr.available.set(tr.available.indexOf(temp), x);
                     tr.waitList.add(p);
                 }
-                return true;
-            } else {
-                return false;
-            }
+                return p;
+            } 
         } else if (tr.tatkal.contains(temp)) {
             Ticket x = tr.tatkal.get(tr.tatkal.indexOf(temp));
             if (x.book(count)) {
-                Pnr p = new Pnr(tr, this, x, count);
+                p = new Pnr(tr, this, x, count);
                 p.status = p.status.concat("TKL");
                 bookedPnr.add(p);
                 tr.tatkal.set(tr.tatkal.indexOf(temp), x);
 
             } else {
-                Pnr p = new Pnr(tr, this, x, count);
+                p = new Pnr(tr, this, x, count);
                 p.status = p.status.concat("WTKL");
                 bookedPnr.add(p);
                 //                tr.tatkal.set(tr.tatkal.indexOf(temp), x);
                 tr.tWaitList.add(p);
             }
-            return true;
-        } else {
-            return false;
         } //kax
+            return p;
     }
 
     @Override
     public String toString() {
-        return "User{\n" +", uID=" + uID + "name=" + name + ", phone=" + phone + ", age=" + age +  ",\nbookedPnr=" + bookedPnr + "\n}";
+        return "User{\n" +"uID=" + uID + "name=" + name + ", phone=" + phone + ", age=" + age +  ",\nbookedPnr=" + bookedPnr + "\n}";
     }
     
 
