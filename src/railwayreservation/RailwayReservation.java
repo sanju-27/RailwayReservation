@@ -40,7 +40,7 @@ public class RailwayReservation {
         do {
             System.out.print("Welcome to Railway Reservation\nEnter ID / Enter -1 to exit: ");
             id = Integer.parseInt(br.readLine());
-            if (id == 1) {
+            if (id == 0) {
                 int ch1;
                 do {
                     System.out.println("Hello Admin\n1.User\n2.Trains\n3.Logout");
@@ -124,8 +124,64 @@ public class RailwayReservation {
                     }
                 } while (ch1 < 3);
             }
+            else
+            {
+                User u = admin.users.get(id);
+                System.out.println("Welcome back "+u.name);
+                int ch1;
+                do
+                {
+                    System.out.println("1.Book Train\n2.View Booked PNR\n3.View My Details\n4. Exit");
+                    ch1 = Integer.parseInt(br.readLine());
+                    switch(ch1)
+                    {
+                        case 1:
+                            Pnr p = bookTicket(admin,u);
+                            viewPNR(p);
+                            break;
+                        case 2:
+                            viewPNR(u);
+                            break;
+                        case 3:
+                            System.out.println(u.toString());
+                            break;
+                    }
+                }while(ch1<4);
+            }
         } while (id < 0);
 
+    }
+
+    private static Pnr bookTicket(Admin admin, User u) throws IOException {
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<Train> ls = new ArrayList<>();
+        dest:{
+        System.out.println("Enter the from place");
+        String from = br.readLine();
+        System.out.println("Enter to place");        
+        String to = br.readLine();
+        if(from.equals(to))
+        {
+            System.out.println("Error! From cannot be same as To\nTry again...");
+            break dest;
+        }
+            for (Train t : admin.trains) {
+                if(t.route.containsKey(from))
+                {
+                    if(t.route.containsKey(to))
+                        ls.add(t);
+                }
+            }
+            } 
+    }
+
+    private static void viewPNR(Pnr p) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private static void viewPNR(User u) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
