@@ -20,10 +20,13 @@ class Pnr {
     Ticket t;
     double bill;
     int count;
+    String from, to;
 
-    public Pnr(Train myTrain, User uName, Ticket t, int count) {
+    public Pnr(Train myTrain, User uName, Ticket t, int count, String from, String to) {
         this.myTrain = myTrain;
         this.uName = uName;
+        this.from = from;
+        this.to = to;
 //        this.status = status;
         this.t = t;
         this.bill = count * (this.t.price);
