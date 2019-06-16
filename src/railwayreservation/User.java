@@ -10,8 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -42,13 +41,13 @@ public class User {
         this.uID = uid; //To change body of generated methods, choose Tools | Templates.
     }
 
-    public Pnr bookTicket(Train tr, int count, int tID, boolean tat) {
+    public Pnr bookTicket(Train tr, int count, int tID, boolean tat, String from, String to) {
         Ticket temp = new Ticket(tID);
         Pnr p=null;
         if (tat == false) {
             if (tr.available.contains(temp)) {
                 Ticket x = tr.available.get(tr.available.indexOf(temp));
-                    p = new Pnr(tr, this, x, count);
+                    p = new Pnr(tr, this, x, count, from, to);
                 if (x.book(count)) {
                     p.status = p.status.concat("CNF");
                     bookedPnr.add(p);
@@ -65,13 +64,13 @@ public class User {
         } else if (tr.tatkal.contains(temp)) {
             Ticket x = tr.tatkal.get(tr.tatkal.indexOf(temp));
             if (x.book(count)) {
-                p = new Pnr(tr, this, x, count);
+                p = new Pnr(tr, this, x, count, from, to);
                 p.status = p.status.concat("TKL");
                 bookedPnr.add(p);
                 tr.tatkal.set(tr.tatkal.indexOf(temp), x);
 
             } else {
-                p = new Pnr(tr, this, x, count);
+                p = new Pnr(tr, this, x, count, from, to);
                 p.status = p.status.concat("WTKL");
                 bookedPnr.add(p);
                 //                tr.tatkal.set(tr.tatkal.indexOf(temp), x);
