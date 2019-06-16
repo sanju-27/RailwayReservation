@@ -22,7 +22,9 @@ import java.util.List;
  */
 public class Admin implements Serializable {
 
-    static final String fname = "C:/Users/Administrator/Desktop/Reservation/admin/save.txt";
+    private static final long serialVersionUID = 1L;
+    // static final String fname = "C:/Users/Administrator/Desktop/Reservation/admin/save.txt";
+    static final String fname = "C:\\Users\\Sanju\\Documents\\GitHub\\RailwayReservation\\src\\save.txt";
     List<Train> trains = new ArrayList<>();
     List<User> users = new ArrayList<>();
 
@@ -75,7 +77,7 @@ public class Admin implements Serializable {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
         }catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 	}
         return o;
