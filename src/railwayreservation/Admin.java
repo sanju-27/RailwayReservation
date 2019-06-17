@@ -23,8 +23,8 @@ import java.util.List;
 public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    // static final String fname = "C:/Users/Administrator/Desktop/Reservation/admin/save.txt";
-    static final String fname = "C:\\Users\\Sanju\\Documents\\GitHub\\RailwayReservation\\src\\save.txt";
+     static final String fname = "C:/Users/Administrator/Desktop/Reservation/admin/save.txt";
+//    static final String fname = "C:\\Users\\Sanju\\Documents\\GitHub\\RailwayReservation\\src\\save.txt";
     List<Train> trains = new ArrayList<>();
     List<User> users = new ArrayList<>();
 
@@ -54,6 +54,7 @@ public class Admin implements Serializable {
             System.out.println("File not found");
         } catch (IOException e) {
             System.out.println("Error initializing stream");
+            e.printStackTrace();
         }
     }
 
@@ -73,9 +74,11 @@ public class Admin implements Serializable {
             fi.close();
                
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            e.printStackTrace();
+            return null;
         } catch (IOException e) {
             System.out.println("Error initializing stream");
+            e.printStackTrace();
         }catch (ClassNotFoundException e) {
 			
 			e.printStackTrace();
