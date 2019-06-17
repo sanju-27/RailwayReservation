@@ -5,12 +5,14 @@
  */
 package railwayreservation;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Administrator
  */
-public class Ticket {
-    
+public class Ticket implements Serializable{
+    private static final long serialVersionUID = 1L;
     int tID;
     String type;
     double price;
