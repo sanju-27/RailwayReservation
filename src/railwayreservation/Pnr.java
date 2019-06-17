@@ -5,14 +5,15 @@
  */
 package railwayreservation;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  *
  * @author Administrator
  */
-class Pnr {
-
+class Pnr implements Serializable{
+private static final long serialVersionUID = 1L;
     String pnrNo;
     Train myTrain;
     String status;
