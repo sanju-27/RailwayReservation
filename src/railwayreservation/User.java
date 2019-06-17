@@ -8,6 +8,7 @@ package railwayreservation;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.List;
  *
  * @author Administrator
  */
-public class User {
-
+public class User implements Serializable{
+private static final long serialVersionUID = 1L;
     String name, phone;
     int age, uID;
     List<Pnr> bookedPnr;
@@ -82,7 +83,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{\n" +"uID=" + uID + "name=" + name + ", phone=" + phone + ", age=" + age +  ",\nbookedPnr=" + bookedPnr + "\n}";
+        return "User{\n" +"uID=" + (uID+1) + "name=" + name + ", phone=" + phone + ", age=" + age +  ",\nbookedPnr=" + bookedPnr + "\n}";
     }
     
 
