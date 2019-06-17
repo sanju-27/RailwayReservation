@@ -42,8 +42,8 @@ public class RailwayReservation {
                     ch1 = Integer.parseInt(br.readLine());
                     if (ch1 == 1) {
                         int ch2;
-                        System.out.println("1.Add\n2.View\n3.Count\n4.Exit");
                         do {
+                        System.out.println("1.Add\n2.View\n3.Count\n4.Exit");
                             ch2 = Integer.parseInt(br.readLine());
                             switch (ch2) {
                             case 1:
@@ -58,17 +58,21 @@ public class RailwayReservation {
                             case 2:
                                 System.out.print("Enter UID: ");
                                 int uid = Integer.parseInt(br.readLine());
-                                System.out.println(admin.users.get(uid).toString());
+                                if(admin.users.isEmpty())
+                                    System.out.println("No existing users");
+                                if(!admin.users.contains(new User(uid-1)))
+                                    System.out.println("User Not Found");
+                                System.out.println(admin.users.get(uid-1).toString());
                                 break;
                             case 3:
                                 System.out.println("Total number of users: " + admin.users.size());
                             }
-                        } while (ch2 < 3);
+                        } while (ch2 < 4);
                     }
                     if (ch1 == 2) {
                         int ch2;
-                        System.out.println("1.Add\n2.View\n3.Count\n4.Exit");
                         do {
+                        System.out.println("1.Add\n2.View\n3.Count\n4.Exit");
                             ch2 = Integer.parseInt(br.readLine());
                             switch (ch2) {
                             case 1:
@@ -81,7 +85,7 @@ public class RailwayReservation {
                                 int n = Integer.parseInt(br.readLine());
                                 System.out.println("TID\tType\tGeneral\tTatkal\tPrice\tCancel Fee");
                                 for (int i = 0; i < n; i++) {
-                                    String[] s = br.readLine().split(" ");
+                                    String[] s = br.readLine().split("\t");
                                     Ticket gt = new Ticket(Integer.parseInt(s[0]), s[1], Double.valueOf(s[4]),
                                             Integer.parseInt(s[2]), Double.valueOf(s[5]));
                                     Ticket tt = new Ticket(Integer.parseInt(s[0]), s[3], Double.valueOf(s[4]),
@@ -95,7 +99,7 @@ public class RailwayReservation {
                                 n = Integer.parseInt(br.readLine());
                                 System.out.println("Place\tTime");
                                 for (int i = 0; i < n; i++) {
-                                    String s[] = br.readLine().split(" ");
+                                    String s[] = br.readLine().split("\t");
                                     mp.put(s[0], s[1]);
                                 }
                                 t.setRoute(mp);
@@ -105,17 +109,20 @@ public class RailwayReservation {
                                 break;
                             case 2:
                                 System.out.print("Enter Train number: ");
-                                int uid = Integer.parseInt(br.readLine());
-                                System.out.println(admin.users.get(uid).toString());
+//                                int tid = Integer.parseInt(br.readLine());
+//                                Train tx = new Train(tid);
+//                                System.out.println(admin.users.get(admin.users.indexOf(tx)).toString());
+                                for(Train tx: admin.trains)
+                                    System.out.println(tx.toString());
                                 break;
                             case 3:
-                                System.out.println("Total number of users: " + admin.users.size());
+                                System.out.println("Total number of Trains: " + admin.trains.size());
                             }
-                        } while (ch2 < 3);
+                        } while (ch2 < 4);
                     }
                 } while (ch1 < 3);
-            } else {
-                User u = admin.users.get(id);
+            } else if(id>0) {
+                User u = admin.users.get(id-1);
                 System.out.println("Welcome back " + u.name);
                 int ch1;
                 do {
@@ -123,7 +130,7 @@ public class RailwayReservation {
                     ch1 = Integer.parseInt(br.readLine());
                     switch (ch1) {
                     case 1:
-                        Pnr p = bookTicket(admin, id);
+                        Pnr p = bookTicket(admin, id-1);
                         viewPNR(p);
                         break;
                     case 2:
@@ -143,8 +150,8 @@ public class RailwayReservation {
                     }
                 } while (ch1 < 5);
             }
-        } while (id < 0);
         admin.writeFile();
+        } while (id >= 0);
 
     }
 
@@ -160,7 +167,7 @@ public class RailwayReservation {
             from = br.readLine();
             System.out.println("Enter to place");
             to = br.readLine();
-            if (from.equals(to)) {
+            if (from.equalsIgnoreCase(to)) {
                 System.out.println("Error! From cannot be same as To\nTry again...");
                 break dest;
             }
@@ -170,6 +177,11 @@ public class RailwayReservation {
                         ls.add(t);
                 }
             }
+        }
+        if(ls.isEmpty())
+        {
+            System.out.println("No Trains Available");
+            return null;
         }
         System.out.println("Available Trains:");
         for (Train t : ls) {
@@ -226,3 +238,13 @@ public class RailwayReservation {
     }
 
 }
+/*
+1	AC	20	10	950	350
+2	3A	20	10	1200	500
+3	SL	50	30	450	100
+
+Chennai 3PM
+Chengalpattu 4PM
+madurai 10PM
+Coimbatore 2AM
+*/
