@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 //import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.*;
  *
  * @author Administrator
  */
-class Train {
-
+class Train implements Serializable{
+private static final long serialVersionUID = 1L;
     int trainNo;
     List<Ticket> available = new ArrayList<>();
 //    Map<User, Pnr> waitList = new LinkedHashMap<>();
@@ -30,6 +31,13 @@ class Train {
     public Train(int trainNo) {
         this.trainNo = trainNo;
     }
+
+    @Override
+    public String toString() {
+        return "Train{\n" + "trainNo=" + trainNo + ", available=" + available + ", waitList=" + waitList + ", tWaitList=" + tWaitList + ", names=" + names + ", tatkal=" + tatkal + ", route=" + route + '\n'+'}';
+    }
+
+   
 
     public void setAvailable(List<Ticket> available) {
         this.available.addAll(available);
